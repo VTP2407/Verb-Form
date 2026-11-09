@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Tập Tiếng Anh: Verb Form & Từ Vựng</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-icon">V</div>
+        <div class="logo-text">
+          <h1>PART 1: VERB FORM</h1>
+          <p class="header-subtitle">Gerunds • Bare Infinitives • To-Infinitives (Thầy Bùi Văn Vinh)</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-toggle-sound" class="icon-btn" title="Bật/Tắt âm thanh">🔊 <span class="btn-lbl">Âm thanh: BẬT</span></button>
+        <button id="btn-toggle-autonext" class="icon-btn" title="Tự động qua câu sau khi chọn">⚡ <span class="btn-lbl">Tự chuyển: TẮT</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs-wrapper">
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="struct">
+        <span>🎯</span> <span class="tab-lbl-full">Cơ Chế 1: Cấu Trúc</span><span class="tab-lbl-short">Cấu trúc</span>
+      </button>
+      <button class="tab-btn" data-tab="vocab">
+        <span>📖</span> <span class="tab-lbl-full">Cơ Chế 2: Nghĩa Từ Vựng</span><span class="tab-lbl-short">Từ vựng</span>
+      </button>
+      <button class="tab-btn" data-tab="theory">
+        <span>📚</span> <span class="tab-lbl-full">Sổ Tay Tra Cứu Lý Thuyết</span><span class="tab-lbl-short">Lý thuyết</span>
+      </button>
+      <button class="tab-btn" data-tab="bank">
+        <span>📝</span> <span class="tab-lbl-full">Ngân Hàng Câu Hỏi</span><span class="tab-lbl-short">Ngân hàng</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <!-- ============================================== -->
+    <!-- TAB 1: CƠ CHẾ 1 - CẤU TRÚC VERB FORM           -->
+    <!-- ============================================== -->
+    <div id="panel-struct" class="tab-panel active">
+      <!-- Config Bar -->
+      <div class="config-card" id="struct-config-card">
+        <button type="button" class="config-toggle-bar" id="struct-config-toggle">
+          <div class="config-summary">
+            <span class="cfg-icon">⚙️</span>
+            <span class="cfg-size" id="struct-cfg-size-badge">10 câu</span>
+            <span class="cfg-set" id="struct-cfg-set-badge">Bài 1</span>
+            <span class="cfg-divider">•</span>
+            <span class="cfg-cat" id="struct-cfg-cat-badge">Tất cả CĐ</span>
+          </div>
+          <span class="cfg-arrow">▾ Tùy chọn</span>
+        </button>
+        <div class="config-content">
+          <div class="config-group">
+            <span class="config-label">Quy mô:</span>
+            <div class="pill-group">
+              <button id="struct-size-10" class="pill-btn active" data-size="10">⚡ Bài 10 câu</button>
+              <button id="struct-size-50" class="pill-btn" data-size="50">🏆 Tổng hợp 50 câu</button>
+              <button id="struct-size-all" class="pill-btn" data-size="all">♾️ Tất cả</button>
+            </div>
+          </div>
+
+          <div class="config-group">
+            <span class="config-label">Chọn bài:</span>
+            <select id="struct-set-select" class="select-custom">
+              <!-- Populated via JS: Bài 1, Bài 2... -->
+            </select>
+          </div>
+
+          <div class="config-group">
+            <span class="config-label">Chuyên đề:</span>
+            <select id="struct-category-select" class="select-custom">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+
+          <div class="config-group">
+            <span class="config-label">Chế độ:</span>
+            <div class="pill-group">
+              <button id="struct-mode-practice" class="pill-btn active">Luyện tập</button>
+              <button id="struct-mode-exam" class="pill-btn">Tính giờ</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <div class="stats-badges">
+          <span id="struct-badge-count" class="badge badge-primary">Câu 1 / 10</span>
+          <span id="struct-badge-correct" class="badge badge-success">Đúng: 0</span>
+          <span id="struct-badge-timer" class="badge" style="display:none;">⏱️ 00:00</span>
+          <button id="struct-btn-shuffle" class="icon-btn" style="padding:4px 10px; font-size:0.8rem;" title="Xáo trộn lại toàn bộ câu hỏi và đáp án">🎲 Xáo trộn lại</button>
+        </div>
+        <div class="progress-bar-container">
+          <div id="struct-progress" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Quiz Question Card -->
+      <div class="quiz-card">
+        <span id="struct-card-tag" class="question-tag">Chuyên đề</span>
+        <div id="struct-question-text" class="question-text">
+          Đang tải câu hỏi...
+        </div>
+
+        <div id="struct-options" class="options-grid two-cols">
+          <!-- Options rendered via JS -->
+        </div>
+
+        <!-- Explanation Box -->
+        <div id="struct-explanation" class="explanation-box">
+          <div class="explanation-title">💡 Giải thích chi tiết:</div>
+          <div id="struct-exp-content" class="explanation-content"></div>
+        </div>
+
+        <!-- Quiz Footer Controls -->
+        <div class="quiz-footer">
+          <div class="hint-text">
+            Mẹo: Nhấn phím <span class="kbd">1</span>, <span class="kbd">2</span>, <span class="kbd">3</span>, <span class="kbd">4</span> (hoặc <span class="kbd">A</span>, <span class="kbd">B</span>, <span class="kbd">C</span>, <span class="kbd">D</span>) để chọn nhanh • <span class="kbd">Enter</span> qua câu
+          </div>
+          <button id="struct-btn-next" class="btn-primary" style="display:none;">
+            <span>Câu tiếp theo</span> ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- Danh sách các câu làm sai (Hiển thị ở dưới) -->
+      <div id="struct-wrong-container" class="wrong-container" style="display:none;">
+        <div class="wrong-header">
+          <div class="wrong-title">
+            <span>⚠️</span>
+            <span>Danh Sách Câu Đã Trả Lời Sai (<span id="struct-wrong-count">0</span> câu)</span>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button id="struct-btn-copy-wrong" class="btn-copy-wrong">📋 Sao chép ghi chú</button>
+            <button id="struct-btn-retry-wrong" class="btn-retry-wrong">🔄 Chỉ luyện tập lại các câu sai</button>
+          </div>
+        </div>
+        <p class="wrong-desc">
+          💡 Các câu làm sai đã được <b>tự động đẩy xuống cuối hàng đợi</b> để bạn gặp lại và làm lại, đồng thời được lưu chi tiết bên dưới để ôn tập:
+        </p>
+        <div id="struct-wrong-list" class="wrong-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 2: CƠ CHẾ 2 - CHỌN NGHĨA TỪ VỰNG           -->
+    <!-- ============================================== -->
+    <div id="panel-vocab" class="tab-panel">
+      <!-- Config Bar -->
+      <div class="config-card" id="vocab-config-card">
+        <button type="button" class="config-toggle-bar" id="vocab-config-toggle">
+          <div class="config-summary">
+            <span class="cfg-icon">⚙️</span>
+            <span class="cfg-size" id="vocab-cfg-size-badge">10 từ</span>
+            <span class="cfg-set" id="vocab-cfg-set-badge">Bài 1</span>
+            <span class="cfg-divider">•</span>
+            <span class="cfg-cat" id="vocab-cfg-cat-badge">Anh ➔ Việt</span>
+          </div>
+          <span class="cfg-arrow">▾ Tùy chọn</span>
+        </button>
+        <div class="config-content">
+          <div class="config-group">
+            <span class="config-label">Quy mô:</span>
+            <div class="pill-group">
+              <button id="vocab-size-10" class="pill-btn active" data-size="10">⚡ Bài 10 từ</button>
+              <button id="vocab-size-50" class="pill-btn" data-size="50">🏆 Tổng hợp 50 từ</button>
+              <button id="vocab-size-all" class="pill-btn" data-size="all">♾️ Tất cả</button>
+            </div>
+          </div>
+
+          <div class="config-group">
+            <span class="config-label">Chọn bài:</span>
+            <select id="vocab-set-select" class="select-custom">
+              <!-- Populated via JS: Bài 1, Bài 2... -->
+            </select>
+          </div>
+
+          <div class="config-group">
+            <span class="config-label">Chiều kiểm tra:</span>
+            <div class="pill-group">
+              <button id="vocab-dir-envi" class="pill-btn active">Anh ➔ Việt</button>
+              <button id="vocab-dir-vien" class="pill-btn">Việt ➔ Anh</button>
+            </div>
+          </div>
+
+          <div class="config-group">
+            <span class="config-label">Chuyên đề:</span>
+            <select id="vocab-category-select" class="select-custom">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <div class="stats-badges">
+          <span id="vocab-badge-count" class="badge badge-primary">Từ số 1 / 10</span>
+          <span id="vocab-badge-correct" class="badge badge-success">Đúng: 0</span>
+          <button id="vocab-btn-shuffle" class="icon-btn" style="padding:4px 10px; font-size:0.8rem;" title="Xáo trộn lại toàn bộ từ vựng và đáp án">🎲 Xáo trộn lại</button>
+        </div>
+        <div class="progress-bar-container">
+          <div id="vocab-progress" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Quiz Question Card -->
+      <div class="quiz-card">
+        <span id="vocab-card-tag" class="question-tag">Từ Vựng Ngẫu Nhiên</span>
+        <div id="vocab-question-text" class="question-text">
+          Đang tải câu hỏi...
+        </div>
+
+        <div id="vocab-options" class="options-grid">
+          <!-- Options rendered via JS -->
+        </div>
+
+        <!-- Explanation Box -->
+        <div id="vocab-explanation" class="explanation-box">
+          <div class="explanation-title">💡 Giải nghĩa & Cấu trúc đi kèm:</div>
+          <div id="vocab-exp-content" class="explanation-content"></div>
+        </div>
+
+        <!-- Quiz Footer Controls -->
+        <div class="quiz-footer">
+          <div class="hint-text">
+            Mẹo: Nhấn phím <span class="kbd">1</span>, <span class="kbd">2</span>, <span class="kbd">3</span>, <span class="kbd">4</span> (hoặc <span class="kbd">A</span>, <span class="kbd">B</span>, <span class="kbd">C</span>, <span class="kbd">D</span>) để chọn nhanh • <span class="kbd">Enter</span> qua câu
+          </div>
+          <button id="vocab-btn-next" class="btn-primary" style="display:none;">
+            <span>Từ tiếp theo</span> ➜
+          </button>
+        </div>
+      </div>
+
+      <!-- Danh sách từ vựng làm sai (Hiển thị ở dưới) -->
+      <div id="vocab-wrong-container" class="wrong-container" style="display:none;">
+        <div class="wrong-header">
+          <div class="wrong-title">
+            <span>⚠️</span>
+            <span>Danh Sách Từ Vựng Trả Lời Sai (<span id="vocab-wrong-count">0</span> từ)</span>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button id="vocab-btn-copy-wrong" class="btn-copy-wrong">📋 Sao chép ghi chú</button>
+            <button id="vocab-btn-retry-wrong" class="btn-retry-wrong">🔄 Chỉ luyện tập lại các từ sai</button>
+          </div>
+        </div>
+        <p class="wrong-desc">
+          💡 Các từ làm sai đã được <b>tự động đẩy xuống cuối hàng đợi</b> để bạn gặp lại và làm lại, đồng thời được lưu chi tiết bên dưới để ôn tập:
+        </p>
+        <div id="vocab-wrong-list" class="wrong-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 3: SỔ TAY TRA CỨU LÝ THUYẾT                -->
+    <!-- ============================================== -->
+    <div id="panel-theory" class="tab-panel">
+      <div class="theory-search-bar">
+        <input type="text" id="theory-search" class="input-search" placeholder="🔍 Tìm kiếm động từ, nghĩa tiếng Việt, hoặc dạng cấu trúc...">
+      </div>
+
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Động từ / Cấu trúc</th>
+              <th>Nghĩa tiếng Việt</th>
+              <th>Dạng đi kèm</th>
+              <th>Ghi chú ngữ pháp</th>
+              <th>Phần</th>
+            </tr>
+          </thead>
+          <tbody id="theory-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 4: NGÂN HÀNG CÂU HỎI TRẮC NGHIỆM           -->
+    <!-- ============================================== -->
+    <div id="panel-bank" class="tab-panel">
+      <div class="theory-search-bar">
+        <input type="text" id="bank-search" class="input-search" placeholder="🔍 Tìm câu hỏi trong ngân hàng theo từ khóa...">
+      </div>
+      <div id="bank-list-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Exam Result Modal -->
+  <div id="result-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="result-score-circle">
+        <div class="score-num" id="modal-score">18</div>
+        <div class="score-denom">/ <span id="modal-total">20</span></div>
+      </div>
+      <h2 class="result-title">Hoàn Thành Bài Thi!</h2>
+      <p id="modal-evaluation" class="result-subtitle">Xuất sắc! Nắm cực vững kiến thức!</p>
+
+      <div class="result-stats-row">
+        <div>
+          <div id="modal-percent" class="stat-item-num" style="color:var(--primary);">90%</div>
+          <div class="stat-item-lbl">Tỉ lệ đúng</div>
+        </div>
+        <div>
+          <div id="modal-time" class="stat-item-num" style="color:#0ea5e9;">01:45</div>
+          <div class="stat-item-lbl">Thời gian làm</div>
+        </div>
+      </div>
+
+      <!-- Danh sách câu sai trong bài thi -->
+      <div id="modal-wrong-container" style="display:none; text-align:left; margin-bottom:20px;">
+        <h3 style="font-size:0.95rem; font-weight:700; color:#b91c1c; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+          <span>⚠️</span> Các câu làm sai cần xem lại:
+        </h3>
+        <div id="modal-wrong-list" style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button id="modal-btn-next-set" class="btn-primary" style="background:#0ea5e9;">Bài tiếp theo ➜</button>
+        <button id="modal-btn-retry-wrong" class="btn-retry-wrong" style="display:none;">🔄 Luyện lại các câu sai</button>
+        <button id="modal-btn-restart" class="btn-primary">Làm lại bài này</button>
+        <button id="modal-btn-close" class="icon-btn" style="padding:10px 18px;">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data and Application Script -->
+  <script src="questions_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

@@ -183,9 +183,7 @@ class EnglishQuizApp {
     this.structBtnShuffle = document.getElementById('struct-btn-shuffle');
     this.vocabBtnShuffle = document.getElementById('vocab-btn-shuffle');
 
-    // Cards & Hints for click anywhere
-    this.structHintText = document.querySelector('#panel-struct .hint-text');
-    this.vocabHintText = document.querySelector('#panel-vocab .hint-text');
+    // Cards for click anywhere
     this.structQuizCard = document.querySelector('#panel-struct .quiz-card');
     this.vocabQuizCard = document.querySelector('#panel-vocab .quiz-card');
 
@@ -399,8 +397,8 @@ class EnglishQuizApp {
 
     // CLICK ANYWHERE TO ADVANCE AFTER ANSWERED
     document.addEventListener('click', (e) => {
-      // Do not advance if user clicked on interactive config / navigation elements
-      if (e.target.closest('.nav-tabs, .header-actions, .config-card, .btn-retry-wrong, .btn-copy-wrong, .modal-card, #result-modal, input, select')) {
+      // Do not advance if user clicked on interactive config / navigation / option / next button elements
+      if (e.target.closest('.nav-tabs, .header-actions, .config-card, .btn-retry-wrong, .btn-copy-wrong, .modal-card, #result-modal, .option-btn, .btn-primary, .explanation-box, input, select')) {
         return;
       }
 
@@ -605,9 +603,6 @@ class EnglishQuizApp {
 
     // Remove answered state from quiz card
     if (this.structQuizCard) this.structQuizCard.classList.remove('answered');
-    if (this.structHintText) {
-      this.structHintText.innerHTML = 'Mẹo: Nhấn phím <span class="kbd">1</span>, <span class="kbd">2</span>, <span class="kbd">3</span>, <span class="kbd">4</span> (hoặc <span class="kbd">A</span>, <span class="kbd">B</span>, <span class="kbd">C</span>, <span class="kbd">D</span>) để chọn nhanh • <span class="kbd">Enter</span> qua câu';
-    }
 
     // Badges & Progress
     this.structBadgeCount.innerHTML = `Câu <b>${s.currentIndex + 1}</b> / ${s.questions.length}`;
@@ -649,7 +644,10 @@ class EnglishQuizApp {
         <span class="option-key">${keys[idx]}</span>
         <span class="option-text">${opt}</span>
       `;
-      btn.addEventListener('click', () => this.handleStructAnswer(idx));
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.handleStructAnswer(idx);
+      });
       this.structOptionsContainer.appendChild(btn);
     });
 
@@ -665,9 +663,6 @@ class EnglishQuizApp {
 
     // Visual cue for clicking anywhere to advance
     if (this.structQuizCard) this.structQuizCard.classList.add('answered');
-    if (this.structHintText) {
-      this.structHintText.innerHTML = '👉 <b>Đã trả lời xong!</b> Nhấp vào <b>bất kỳ đâu trên màn hình</b> (hoặc bấm phím bất kỳ / Space / Enter) để sang câu tiếp theo ➜';
-    }
 
     const q = s.questions[s.currentIndex];
     const isCorrect = (chosenIdx === q.correct);
@@ -717,7 +712,7 @@ class EnglishQuizApp {
     let extraNote = "";
     if (!isCorrect) {
       extraNote = `<div style="margin-top:12px; padding:8px 12px; background:#fee2e2; border-left:4px solid #ef4444; border-radius:4px; font-size:0.88rem; color:#991b1b; font-weight:600;">
-        ⬇️ Câu này đã được tự động đẩy xuống cuối hàng đợi để bạn làm lại cho nhớ, đồng thời được ghi lại ở danh sách bên dưới!
+        ⬇️ Câu này đã được tự động đẩy xuống cuối hàng đợi để bạn làm lại cho nhớ!
       </div>`;
     }
 
@@ -981,9 +976,6 @@ class EnglishQuizApp {
 
     // Reset answered cue
     if (this.vocabQuizCard) this.vocabQuizCard.classList.remove('answered');
-    if (this.vocabHintText) {
-      this.vocabHintText.innerHTML = 'Mẹo: Nhấn phím <span class="kbd">1</span>, <span class="kbd">2</span>, <span class="kbd">3</span>, <span class="kbd">4</span> (hoặc <span class="kbd">A</span>, <span class="kbd">B</span>, <span class="kbd">C</span>, <span class="kbd">D</span>) để chọn nhanh • <span class="kbd">Enter</span> qua câu';
-    }
 
     // Badges & Progress
     this.vocabBadgeCount.innerHTML = `Từ số <b>${v.currentIndex + 1}</b> / ${v.questions.length}`;
@@ -1021,7 +1013,10 @@ class EnglishQuizApp {
         <span class="option-key">${keys[idx]}</span>
         <span class="option-text">${opt}</span>
       `;
-      btn.addEventListener('click', () => this.handleVocabAnswer(idx));
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.handleVocabAnswer(idx);
+      });
       this.vocabOptionsContainer.appendChild(btn);
     });
 
@@ -1036,9 +1031,6 @@ class EnglishQuizApp {
 
     // Visual cue for clicking anywhere to advance
     if (this.vocabQuizCard) this.vocabQuizCard.classList.add('answered');
-    if (this.vocabHintText) {
-      this.vocabHintText.innerHTML = '👉 <b>Đã trả lời xong!</b> Nhấp vào <b>bất kỳ đâu trên màn hình</b> (hoặc bấm phím bất kỳ / Space / Enter) để sang từ tiếp theo ➜';
-    }
 
     const q = v.questions[v.currentIndex];
     const isCorrect = (chosenIdx === q.correct);
@@ -1087,7 +1079,7 @@ class EnglishQuizApp {
     let extraNote = "";
     if (!isCorrect) {
       extraNote = `<div style="margin-top:12px; padding:8px 12px; background:#fee2e2; border-left:4px solid #ef4444; border-radius:4px; font-size:0.88rem; color:#991b1b; font-weight:600;">
-        ⬇️ Từ này đã được tự động đẩy xuống cuối hàng đợi để bạn làm lại cho nhớ, đồng thời được ghi lại ở danh sách bên dưới!
+        ⬇️ Từ này đã được tự động đẩy xuống cuối hàng đợi để bạn làm lại cho nhớ!
       </div>`;
     }
 

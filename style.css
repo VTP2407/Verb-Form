@@ -406,35 +406,33 @@ body {
   display: inline-block;
 }
 
-/* Option Grid */
-.options-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-@media (min-width: 640px) {
-  .options-grid.two-cols {
-    grid-template-columns: 1fr 1fr;
-  }
+/* Option Grid - Xếp 4 đáp án thành hàng dọc */
+.options-grid,
+.options-grid.two-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
 }
 
 .option-btn {
   background: #f8fafc;
   border: 2px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 16px 20px;
-  font-size: 1.05rem;
-  font-weight: 600;
+  padding: 20px 24px;
+  min-height: 82px;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: #1e293b;
   cursor: pointer;
   text-align: left;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   position: relative;
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  width: 100%;
 }
 
 .option-btn:hover:not(:disabled) {
@@ -445,16 +443,16 @@ body {
 }
 
 .option-key {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
   background: #ffffff;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: #64748b;
   flex-shrink: 0;
   transition: all 0.15s;
@@ -468,6 +466,8 @@ body {
 
 .option-text {
   flex: 1;
+  font-size: 1.5rem;
+  line-height: 1.35;
 }
 
 /* Option States */
@@ -515,12 +515,11 @@ body {
 }
 
 .explanation-title {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
+  line-height: 1.45;
 }
 
 .explanation-box.correct {
@@ -549,29 +548,18 @@ body {
 
 /* Footer Action Controls */
 .quiz-footer {
+  display: none;
+}
+
+.quiz-card.answered .quiz-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 24px;
-  padding-top: 18px;
+  justify-content: flex-end;
+  margin-top: 22px;
+  padding-top: 16px;
   border-top: 1px solid var(--border);
   gap: 12px;
   flex-wrap: wrap;
-}
-
-.hint-text {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-}
-
-.kbd {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-family: monospace;
-  font-size: 0.8rem;
-  color: #334155;
 }
 
 .btn-primary {
@@ -579,13 +567,13 @@ body {
   color: #fff;
   border: none;
   border-radius: var(--radius-md);
-  padding: 10px 22px;
-  font-size: 0.95rem;
+  padding: 16px 28px;
+  font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   transition: all 0.15s ease;
   box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
 }
@@ -712,7 +700,7 @@ body {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
   box-shadow: var(--shadow-sm);
 }
 
@@ -758,40 +746,42 @@ body {
 .form-pill.bare { background: #dcfce7; color: #166534; }
 .form-pill.both { background: #f3e8ff; color: #6b21a8; }
 
-/* Responsive adjustments - Tối ưu cho điện thoại KHÔNG CẦN CUỘN */
+/* Responsive adjustments - Tối ưu cho điện thoại: Nút & chữ x2, 4 đáp án hàng dọc, Lý thuyết dạng thẻ không tràn */
 @media (max-width: 600px) {
-  /* Header cực gọn */
+  /* Header */
   .header-inner {
-    padding: 6px 10px;
-    gap: 6px;
-  }
-  .logo-area {
+    padding: 10px 14px;
     gap: 8px;
   }
+  .logo-area {
+    gap: 10px;
+  }
   .logo-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-    border-radius: 7px;
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    border-radius: 10px;
   }
   .logo-text h1 {
-    font-size: 0.92rem;
+    font-size: 1.08rem;
   }
   .header-subtitle {
     display: none !important;
   }
   .header-actions {
-    gap: 6px;
+    gap: 8px;
   }
   .header-actions .icon-btn {
-    padding: 4px 8px;
-    font-size: 0.76rem;
+    padding: 8px 14px;
+    font-size: 1.1rem;
+    min-height: 44px;
+    border-radius: 10px;
   }
   .btn-lbl {
     display: none !important;
   }
 
-  /* Nav Tabs thu gọn */
+  /* Nav Tabs - Vừa đủ 4 tab trên màn 428px, không bị cắt chữ Ngân hàng */
   .tab-lbl-full {
     display: none !important;
   }
@@ -799,27 +789,31 @@ body {
     display: inline !important;
   }
   .nav-tabs {
-    padding: 0 8px;
-    gap: 2px;
+    padding: 0 6px;
+    gap: 0;
+    justify-content: space-between;
   }
   .tab-btn {
-    padding: 7px 9px;
-    font-size: 0.8rem;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 10px 6px;
+    font-size: 0.88rem;
+    font-weight: 700;
     gap: 4px;
   }
 
-  /* Main container gọn gàng */
+  /* Main container */
   .main-content {
-    margin: 4px auto;
-    padding: 0 8px 12px;
+    margin: 10px auto;
+    padding: 0 12px 30px;
     max-width: 100%;
   }
 
-  /* Thanh Tùy chọn thu gọn thành 1 dòng (Accordion) */
+  /* Thanh Tùy chọn thu gọn (Accordion) */
   .config-card {
-    padding: 6px 10px;
-    margin-bottom: 6px;
-    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-radius: 12px;
     display: block;
     gap: 0;
   }
@@ -830,47 +824,47 @@ body {
     justify-content: space-between;
     background: none;
     border: none;
-    padding: 2px 0;
+    padding: 4px 0;
     cursor: pointer;
-    font-size: 0.82rem;
+    font-size: 0.96rem;
     font-weight: 600;
     color: var(--text-main);
   }
   .config-summary {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
+    gap: 8px;
+    font-size: 0.92rem;
     overflow: hidden;
     white-space: nowrap;
   }
   .cfg-size {
     background: #e0e7ff;
     color: #4338ca;
-    padding: 1px 6px;
-    border-radius: 4px;
+    padding: 3px 9px;
+    border-radius: 6px;
     font-weight: 700;
-    font-size: 0.72rem;
+    font-size: 0.86rem;
   }
   .cfg-set {
     font-weight: 700;
     color: #0f172a;
-    font-size: 0.8rem;
+    font-size: 0.92rem;
   }
   .cfg-cat {
     color: #64748b;
-    font-size: 0.74rem;
-    max-width: 110px;
+    font-size: 0.88rem;
+    max-width: 130px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .cfg-arrow {
-    font-size: 0.72rem;
+    font-size: 0.92rem;
     color: #4f46e5;
     background: #f1f5f9;
-    padding: 3px 8px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
     font-weight: 700;
     flex-shrink: 0;
   }
@@ -878,9 +872,9 @@ body {
     display: none;
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
-    padding-top: 8px;
-    margin-top: 6px;
+    gap: 12px;
+    padding-top: 12px;
+    margin-top: 10px;
     border-top: 1px solid var(--border);
   }
   .config-card.is-open .config-content {
@@ -893,17 +887,18 @@ body {
   .config-group {
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 6px;
     width: 100%;
   }
   .config-label {
-    font-size: 0.74rem;
+    font-size: 0.9rem;
   }
   .select-custom {
     max-width: 100%;
     width: 100%;
-    padding: 6px 10px;
-    font-size: 0.82rem;
+    padding: 11px 14px;
+    font-size: 1.02rem;
+    min-height: 46px;
   }
   .pill-group {
     width: 100%;
@@ -911,140 +906,306 @@ body {
   .pill-btn {
     flex: 1;
     text-align: center;
-    padding: 5px 6px;
-    font-size: 0.76rem;
+    padding: 10px 10px;
+    font-size: 0.98rem;
+    min-height: 44px;
   }
 
   /* Status Bar */
   .status-bar {
-    margin-bottom: 6px;
+    margin-bottom: 12px;
+    gap: 8px;
   }
   .stats-badges {
-    gap: 5px;
+    gap: 8px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
   }
   .badge {
-    padding: 2px 7px;
-    font-size: 0.72rem;
+    padding: 6px 12px;
+    font-size: 0.92rem;
+    font-weight: 600;
   }
   #struct-btn-shuffle, #vocab-btn-shuffle {
-    padding: 2px 7px;
-    font-size: 0.72rem;
+    padding: 8px 14px;
+    font-size: 1.02rem;
+    min-height: 42px;
     margin-left: auto;
   }
   .progress-bar-container {
-    height: 4px;
-    margin-top: 4px;
+    height: 6px;
+    margin-top: 6px;
+    width: 100%;
   }
 
-  /* Quiz Card gọn gàng - vừa khít màn hình */
-  .quiz-card {
-    padding: 10px 12px;
-    margin-bottom: 8px;
-    border-radius: 12px;
+  /* Quiz Card (chỉ áp dụng cho tab Cấu trúc và Từ vựng để không đụng Ngân hàng) */
+  #panel-struct .quiz-card,
+  #panel-vocab .quiz-card {
+    padding: 16px 14px;
+    margin-bottom: 16px;
+    border-radius: 16px;
   }
-  .question-tag {
-    font-size: 0.66rem;
-    padding: 2px 6px;
-    margin-bottom: 4px;
+  #panel-struct .question-tag,
+  #panel-vocab .question-tag {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
   }
-  .question-text {
-    font-size: 0.96rem;
+  #panel-struct .question-text,
+  #panel-vocab .question-text {
+    font-size: 1.38rem;
     font-weight: 700;
-    line-height: 1.32;
-    margin-bottom: 8px;
+    line-height: 1.38;
+    margin-bottom: 14px;
   }
+
+  /* 4 Đáp án xếp thành hàng dọc, button và cỡ chữ x2 */
+  .options-grid,
   .options-grid.two-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-  .options-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
   }
   .option-btn {
-    padding: 6px 10px;
-    min-height: 38px;
-    border-radius: 8px;
-    gap: 6px;
+    padding: 14px 16px;
+    min-height: 82px;
+    border-radius: 14px;
+    gap: 14px;
+    width: 100%;
+    font-size: 1.65rem;
   }
   .option-key {
-    width: 22px;
-    height: 22px;
-    font-size: 0.74rem;
-    border-radius: 5px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    border-radius: 10px;
     flex-shrink: 0;
   }
   .option-text {
-    font-size: 0.84rem;
-    font-weight: 600;
+    font-size: 1.65rem;
+    font-weight: 700;
     line-height: 1.25;
   }
 
-  /* Explanation Box thu gọn có thanh cuộn mượt khi dài */
+  /* Explanation Box */
   .explanation-box {
-    margin-top: 6px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    max-height: 85px;
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    max-height: 260px;
     overflow-y: auto;
   }
   .explanation-title {
-    font-size: 0.78rem;
-    margin-bottom: 2px;
+    font-size: 1.08rem;
+    margin-bottom: 6px;
   }
   .explanation-content {
-    font-size: 0.75rem;
-    line-height: 1.32;
+    font-size: 1.05rem;
+    line-height: 1.55;
   }
 
   /* Quiz Footer */
   .quiz-footer {
-    margin-top: 6px;
-    padding-top: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
+    display: none;
   }
-  .hint-text {
-    font-size: 0.7rem;
-    line-height: 1.25;
+  .quiz-card.answered .quiz-footer {
+    margin-top: 16px;
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
   .btn-primary {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    height: 34px;
+    width: 100%;
+    justify-content: center;
+    padding: 18px 24px;
+    font-size: 1.45rem;
+    min-height: 68px;
+    border-radius: 14px;
+    font-weight: 700;
+  }
+
+  /* Lý thuyết (Theory Table) - Chuyển sang thẻ dọc vừa màn hình, không bị tràn */
+  .data-table-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .data-table,
+  .data-table tbody {
+    display: block;
+    width: 100%;
+  }
+  .data-table thead {
+    display: none;
+  }
+  .data-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "word part"
+      "form form"
+      "meaning meaning"
+      "note note";
+    gap: 8px 10px;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+  }
+  .data-table tbody tr:hover {
+    background: #ffffff;
+  }
+  .data-table td {
+    display: block;
+    padding: 0;
+    border: none;
+    font-size: 1rem;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .data-table td:nth-child(1) {
+    grid-area: word;
+    font-size: 1.18rem;
+  }
+  .data-table td:nth-child(2) {
+    grid-area: meaning;
+    color: #1e293b;
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+  .data-table td:nth-child(3) {
+    grid-area: form;
+  }
+  .data-table td:nth-child(4) {
+    grid-area: note;
+  }
+  .data-table td:nth-child(4) small {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    display: block;
+  }
+  .data-table td:nth-child(4):has(small:empty) {
+    display: none;
+  }
+  .data-table td:nth-child(5) {
+    grid-area: part;
+    justify-self: end;
+  }
+  .data-table .form-pill {
+    white-space: normal;
+    max-width: 100%;
+    line-height: 1.4;
+    padding: 4px 10px;
+    font-size: 0.92rem;
+  }
+
+  /* Khu vực các câu làm sai trên mobile */
+  .wrong-container {
+    padding: 18px 14px;
+    margin-top: 20px;
+    border-radius: 14px;
+  }
+  .wrong-title {
+    font-size: 1.1rem;
+  }
+  .wrong-desc {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+  .wrong-header div[style*="display:flex"] {
+    width: 100%;
+    flex-direction: column;
+  }
+  .btn-retry-wrong, .btn-copy-wrong {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 18px;
+    font-size: 1.15rem;
+    min-height: 54px;
+  }
+
+  /* Modal kết quả bài thi trên mobile */
+  .modal-card {
+    padding: 24px 16px;
+    width: 95%;
+  }
+  .result-score-circle {
+    width: 105px;
+    height: 105px;
+    margin-bottom: 16px;
+  }
+  .result-score-circle .score-num {
+    font-size: 2.1rem;
+  }
+  .result-title {
+    font-size: 1.25rem;
+  }
+  .result-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .modal-card .btn-primary,
+  .modal-card .btn-retry-wrong,
+  .modal-card .icon-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 58px;
+    font-size: 1.25rem;
   }
 }
 
-/* Tối ưu thêm cho màn hình có chiều cao rất ngắn (Landscape hoặc máy nhỏ) */
+@media (max-width: 380px) {
+  .tab-btn {
+    font-size: 0.78rem;
+    padding: 10px 4px;
+  }
+  .option-btn,
+  .option-text {
+    font-size: 1.55rem;
+  }
+  .option-btn {
+    min-height: 84px;
+    padding: 16px 14px;
+  }
+}
+
+/* Đảm bảo màn hình ngắn (Landscape) vẫn giữ nút to & dễ bấm */
 @media (max-height: 650px) {
   .app-header {
     position: static;
   }
   .main-content {
-    margin: 2px auto;
-    padding: 0 6px 8px;
+    margin: 6px auto;
+    padding: 0 10px 16px;
   }
   .quiz-card {
-    padding: 8px 10px;
-    margin-bottom: 6px;
+    padding: 16px 14px;
+    margin-bottom: 12px;
   }
   .question-text {
-    font-size: 0.92rem;
-    margin-bottom: 6px;
+    font-size: 1.2rem;
+    margin-bottom: 14px;
   }
   .option-btn {
-    min-height: 34px;
-    padding: 4px 8px;
+    min-height: 70px;
+    padding: 14px 16px;
   }
   .explanation-box {
-    max-height: 65px;
+    max-height: 160px;
   }
 }
 

@@ -287,7 +287,10 @@ class EnglishQuizApp {
       this.loadStructCurrentSet();
     });
 
-    this.structBtnNext.addEventListener('click', () => this.nextStructQuestion());
+    this.structBtnNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.nextStructQuestion();
+    });
 
     // Vocab Quiz Size pills (10, 50, all)
     this.vocabSizeBtns.forEach(btn => {
@@ -330,7 +333,10 @@ class EnglishQuizApp {
       this.startVocabQuiz();
     });
 
-    this.vocabBtnNext.addEventListener('click', () => this.nextVocabQuestion());
+    this.vocabBtnNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.nextVocabQuestion();
+    });
 
     // Retry Wrong Buttons
     if (this.structBtnRetryWrong) {
@@ -397,8 +403,8 @@ class EnglishQuizApp {
 
     // CLICK ANYWHERE TO ADVANCE AFTER ANSWERED
     document.addEventListener('click', (e) => {
-      // Do not advance if user clicked on interactive config / navigation / option / next button elements
-      if (e.target.closest('.nav-tabs, .header-actions, .config-card, .btn-retry-wrong, .btn-copy-wrong, .modal-card, #result-modal, .option-btn, .btn-primary, .explanation-box, input, select')) {
+      // Do not advance if user clicked on interactive config / navigation / modal controls
+      if (e.target.closest('.nav-tabs, .header-actions, .config-card, #struct-btn-shuffle, #vocab-btn-shuffle, .btn-retry-wrong, .btn-copy-wrong, .modal-card, #result-modal, .btn-primary, input, select')) {
         return;
       }
 
@@ -645,6 +651,9 @@ class EnglishQuizApp {
         <span class="option-text">${opt}</span>
       `;
       btn.addEventListener('click', (e) => {
+        if (this.structState.isAnswered) {
+          return;
+        }
         e.stopPropagation();
         this.handleStructAnswer(idx);
       });
@@ -668,9 +677,9 @@ class EnglishQuizApp {
     const isCorrect = (chosenIdx === q.correct);
     const buttons = this.structOptionsContainer.querySelectorAll('.option-btn');
 
-    // Highlight options
+    // Highlight options (keep buttons clickable so tapping anywhere advances to next question)
     buttons.forEach((btn, idx) => {
-      btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
       if (idx === q.correct) {
         btn.classList.add('correct');
       } else if (idx === chosenIdx) {
@@ -711,7 +720,7 @@ class EnglishQuizApp {
 
     let extraNote = "";
     if (!isCorrect) {
-      extraNote = `<div style="margin-top:12px; padding:8px 12px; background:#fee2e2; border-left:4px solid #ef4444; border-radius:4px; font-size:0.88rem; color:#991b1b; font-weight:600;">
+      extraNote = `<div style="margin-top:8px; padding:6px 10px; background:#fee2e2; border-left:4px solid #ef4444; border-radius:4px; font-size:0.82rem; line-height:1.35; color:#991b1b; font-weight:600;">
         ⬇️ Câu này đã được tự động đẩy xuống cuối hàng đợi để bạn làm lại cho nhớ!
       </div>`;
     }
@@ -1014,6 +1023,9 @@ class EnglishQuizApp {
         <span class="option-text">${opt}</span>
       `;
       btn.addEventListener('click', (e) => {
+        if (this.vocabState.isAnswered) {
+          return;
+        }
         e.stopPropagation();
         this.handleVocabAnswer(idx);
       });
@@ -1037,7 +1049,7 @@ class EnglishQuizApp {
     const buttons = this.vocabOptionsContainer.querySelectorAll('.option-btn');
 
     buttons.forEach((btn, idx) => {
-      btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
       if (idx === q.correct) {
         btn.classList.add('correct');
       } else if (idx === chosenIdx) {
@@ -1078,7 +1090,7 @@ class EnglishQuizApp {
 
     let extraNote = "";
     if (!isCorrect) {
-      extraNote = `<div style="margin-top:12px; padding:8px 12px; background:#fee2e2; border-left:4px solid #ef4444; border-radius:4px; font-size:0.88rem; color:#991b1b; font-weight:600;">
+      extraNote = `<div style="margin-top:8px; padding:6px 10px; background:#fee2e2; border-left:4px solid #ef4444; border-radius:4px; font-size:0.82rem; line-height:1.35; color:#991b1b; font-weight:600;">
         ⬇️ Từ này đã được tự động đẩy xuống cuối hàng đợi để bạn làm lại cho nhớ!
       </div>`;
     }
